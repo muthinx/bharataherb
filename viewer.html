@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Viewer JSON</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1em;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Data dari JSON</h1>
+  <div id="tabel"></div>
+
+  <script>
+    fetch('data.json')
+      .then(response => response.json())
+      .then(data => {
+        const tabelDiv = document.getElementById("tabel");
+        if (!Array.isArray(data)) {
+          tabelDiv.innerHTML = "Format data.json tidak valid";
+          return;
+        }
+
+        const kolom = Object.keys(data[0]);
+        let html = "<table><thead><tr>";
+        kolom.forEach(k => html += `<th>${k}</th>`);
+        html += "</tr></thead><tbody>";
+
+        data.forEach(row => {
+          html += "<tr>";
+          kolom.forEach(k => html += `<td>${row[k]}</td>`);
+          html += "</tr>";
+        });
+
+        html += "</tbody></table>";
+        tabelDiv.innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById("tabel").innerText = "Gagal memuat data: " + err;
+      });
+  </script>
+</body>
+</html>
