@@ -35,10 +35,9 @@ kelasSelect.addEventListener("change", async () => {
 
   if (!kelasSelect.value) {
     mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+    mapelSelect.disabled = false;
     return;
   }
-
-  mapelSelect.disabled = false;
 
   const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
   const { mapel } = await res.json();  // <-- INI FIX
