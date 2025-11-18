@@ -1,49 +1,49 @@
-const API = "https://script.google.com/macros/s/AKfycbwN4XtV43TzXHElEuuBrxO1k8sj5BTEqSeo1W8Bf_OEKYNs_1xsLyUExTPHEcPWAVuv/exec"; // ganti ini
+const API = "https://script.google.com/macros/s/AKfycbwN4XtV43TzXHElEuuBrxO1k8sj5BTEqSeo1W8Bf_OEKYNs_1xsLyUExTPHEcPWAVuv/exec";
 
 const kelasSelect = document.getElementById("kelasSelect");
 const mapelSelect = document.getElementById("mapelSelect");
 const tableContainer = document.getElementById("tableContainer");
 const saveBtn = document.getElementById("saveBtn");
 
-let currentData = []; // untuk menyimpan nilai sementara
+let currentData = [];
+
 
 // =====================
-// 1. Load Metadata
+// 1. Load daftar kelas
 // =====================
 async function loadMeta() {
-  const res = await fetch(API + "?action=getMetaData");
+  const res = await fetch(API + "?action=getMetaData"); // nanti metadata hanya berisi KELAS
   const data = await res.json();
 
-  // isi dropdown kelas
   data.kelas.forEach(k => {
     let opt = document.createElement("option");
     opt.value = k;
     opt.textContent = k;
     kelasSelect.appendChild(opt);
   });
-
-  // simpan mapel (tidak perlu fetch ulang)
-  sessionStorage.setItem("mapelList", JSON.stringify(data.mapel));
 }
 
 loadMeta();
 
 
 // =====================
-// 2. Saat memilih kelas
+// 2. Saat memilih kelas → ambil MAPEL
 // =====================
-kelasSelect.addEventListener("change", () => {
+kelasSelect.addEventListener("change", async () => {
   mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
-  
+  tableContainer.innerHTML = "";
+  saveBtn.disabled = true;
+
   if (!kelasSelect.value) {
     mapelSelect.disabled = true;
-    saveBtn.disabled = true;
-    tableContainer.innerHTML = "";
     return;
   }
 
-  let mapel = JSON.parse(sessionStorage.getItem("mapelList"));
-  mapel.forEach(m => {
+  // ambil mapel sesuai kelas
+  const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
+  const data = await res.json();
+
+  data.mapel.forEach(m => {
     let opt = document.createElement("option");
     opt.value = m;
     opt.textContent = m;
@@ -55,7 +55,7 @@ kelasSelect.addEventListener("change", () => {
 
 
 // =====================
-// 3. Saat memilih mapel → ambil nilai
+// 3. Saat memilih mapel → ambil nilai murid
 // =====================
 mapelSelect.addEventListener("change", async () => {
   if (!mapelSelect.value) {
@@ -76,7 +76,7 @@ mapelSelect.addEventListener("change", async () => {
 
 
 // =====================
-// 4. Bangun tabel input
+// 4. Bangun tabel input nilai
 // =====================
 function buildTable(arr) {
   let html = `<table>
@@ -105,7 +105,7 @@ function buildTable(arr) {
 
 
 // =====================
-// 5. Simpan nilai
+// 5. Simpan nilai murid
 // =====================
 saveBtn.addEventListener("click", async () => {
   const body = {
@@ -123,4 +123,3 @@ saveBtn.addEventListener("click", async () => {
   const result = await res.json();
   alert(result.message || "Berhasil");
 });
-
