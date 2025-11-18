@@ -33,8 +33,8 @@ loadMeta();
 // 2. Saat memilih kelas
 // =====================
 kelasSelect.addEventListener("change", () => {
-  mapelSelect.innerHTML = <option value="">Pilih mapel</option>;
-  
+  mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+
   if (!kelasSelect.value) {
     mapelSelect.disabled = true;
     saveBtn.disabled = true;
@@ -65,7 +65,7 @@ mapelSelect.addEventListener("change", async () => {
   }
 
   const res = await fetch(
-    API + ?action=getNilai&kelas=${kelasSelect.value}&mapel=${mapelSelect.value}
+    API + `?action=getNilai&kelas=${kelasSelect.value}&mapel=${mapelSelect.value}`
   );
 
   currentData = await res.json();
@@ -79,17 +79,17 @@ mapelSelect.addEventListener("change", async () => {
 // 4. Bangun tabel input
 // =====================
 function buildTable(arr) {
-  let html = <table>
+  let html = `<table>
     <tr><th>Nama</th><th>Nilai</th></tr>
-  ;
+  `;
 
   arr.forEach((x, i) => {
-    html += 
+    html += `
       <tr>
         <td>${x.nama}</td>
         <td><input type="number" value="${x.nilai}" data-index="${i}" /></td>
       </tr>
-    ;
+    `;
   });
 
   html += "</table>";
