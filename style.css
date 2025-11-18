@@ -31,10 +31,11 @@ select {
 }
 
 input {
-  width: 90%;
+  width: 100%;
   padding: 8px;
   margin-top: 5px;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 table {
