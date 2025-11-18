@@ -38,10 +38,10 @@ kelasSelect.addEventListener("change", async () => {
     return;
   }
 
+  mapelSelect.disabled = false;
+
   const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
   const { mapel } = await res.json();  // <-- INI FIX
-
-  mapelSelect.disabled = false;
 
   mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
   mapel.forEach(m => {
