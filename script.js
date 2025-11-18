@@ -1,59 +1,61 @@
-const API = "https://script.google.com/macros/s/AKfycbwN4XtV43TzXHElEuuBrxO1k8sj5BTEqSeo1W8Bf_OEKYNs_1xsLyUExTPHEcPWAVuv/exec";
+const API = "https://script.google.com/macros/s/AKfycbwCGWw57P2_jU-V2A2Z-tndhWqFb3YiOrvXdrsMcAlG6Xu4hN8-o0_GOt-FaiXnBcQ/exec"; // ganti ini
 
 const kelasSelect = document.getElementById("kelasSelect");
 const mapelSelect = document.getElementById("mapelSelect");
 const tableContainer = document.getElementById("tableContainer");
 const saveBtn = document.getElementById("saveBtn");
 
-let currentData = [];
+let currentData = []; // untuk menyimpan nilai sementara
 
 // =====================
-// 1. Load metadata (kelas saja)
+// 1. Load Metadata
 // =====================
 async function loadMeta() {
   const res = await fetch(API + "?action=getMetaData");
   const data = await res.json();
 
+  // isi dropdown kelas
   data.kelas.forEach(k => {
     let opt = document.createElement("option");
     opt.value = k;
     opt.textContent = k;
     kelasSelect.appendChild(opt);
   });
+
+  // simpan mapel (tidak perlu fetch ulang)
+  sessionStorage.setItem("mapelList", JSON.stringify(data.mapel));
 }
 
 loadMeta();
 
-// =====================
-// 2. Saat kelas dipilih → ambil mapel khusus kelas itu
-// =====================
-kelasSelect.addEventListener("change", async () => {
-  mapelSelect.innerHTML = `<option value="">Memuat...</option>`;
-  mapelSelect.disabled = false;
-  saveBtn.disabled = true;
-  tableContainer.innerHTML = "";
 
+// =====================
+// 2. Saat memilih kelas
+// =====================
+kelasSelect.addEventListener("change", () => {
+  mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+  
   if (!kelasSelect.value) {
-    mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
-    mapelSelect.disabled = false;
+    mapelSelect.disabled = true;
+    saveBtn.disabled = true;
+    tableContainer.innerHTML = "";
     return;
   }
 
-  const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
-  const { mapel } = await res.json();  // <-- INI FIX
-
-  mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+  let mapel = JSON.parse(sessionStorage.getItem("mapelList"));
   mapel.forEach(m => {
     let opt = document.createElement("option");
     opt.value = m;
     opt.textContent = m;
     mapelSelect.appendChild(opt);
   });
-  
+
+  mapelSelect.disabled = false;
 });
 
+
 // =====================
-// 3. Saat mapel dipilih → ambil nilai
+// 3. Saat memilih mapel → ambil nilai
 // =====================
 mapelSelect.addEventListener("change", async () => {
   if (!mapelSelect.value) {
@@ -72,8 +74,9 @@ mapelSelect.addEventListener("change", async () => {
   saveBtn.disabled = false;
 });
 
+
 // =====================
-// 4. Bangun tabel nilai
+// 4. Bangun tabel input
 // =====================
 function buildTable(arr) {
   let html = `<table>
@@ -94,10 +97,12 @@ function buildTable(arr) {
 
   document.querySelectorAll("input").forEach(inp => {
     inp.oninput = () => {
-      currentData[inp.dataset.index].nilai = inp.value;
+      let i = inp.dataset.index;
+      currentData[i].nilai = inp.value;
     };
   });
 }
+
 
 // =====================
 // 5. Simpan nilai
@@ -116,5 +121,6 @@ saveBtn.addEventListener("click", async () => {
   });
 
   const result = await res.json();
-  alert(result.message || "Berhasil disimpan!");
+  alert(result.message || "Berhasil");
 });
+
