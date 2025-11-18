@@ -1,4 +1,4 @@
-const API = "https://script.google.com/macros/s/AKfycbwCGWw57P2_jU-V2A2Z-tndhWqFb3YiOrvXdrsMcAlG6Xu4hN8-o0_GOt-FaiXnBcQ/exec"; // ganti ini
+const API = "https://script.google.com/macros/s/AKfycbwN4XtV43TzXHElEuuBrxO1k8sj5BTEqSeo1W8Bf_OEKYNs_1xsLyUExTPHEcPWAVuv/exec"; // ganti ini
 
 const kelasSelect = document.getElementById("kelasSelect");
 const mapelSelect = document.getElementById("mapelSelect");
