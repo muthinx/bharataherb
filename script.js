@@ -121,5 +121,33 @@ saveBtn.addEventListener("click", async () => {
   });
 
   const result = await res.json();
-  alert(result.message || "Berhasil");
+  function showPopup(message, color="#4caf50") {
+  const popup = document.getElementById("popup");
+  popup.textContent = message;
+  popup.style.background = color;
+  popup.style.display = "block";
+
+  setTimeout(() => {
+    popup.style.display = "none";
+  }, 2000); // tampil 2 detik
+}
+
+// Contoh pemakaian saat save:
+saveBtn.addEventListener("click", async () => {
+  const body = {
+    action: "saveNilai",
+    kelas: kelasSelect.value,
+    mapel: mapelSelect.value,
+    nilai: currentData.map(x => x.nilai)
+  };
+
+  const res = await fetch(API, {
+    method: "POST",
+    body: JSON.stringify(body)
+  });
+
+  const result = await res.json();
+  showPopup(result.message || "Berhasil"); // ganti alert
+});
+
 });
