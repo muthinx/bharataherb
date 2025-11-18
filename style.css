@@ -65,3 +65,48 @@ button:disabled {
   cursor: not-allowed;
 }
 
+/* ===== Dropdown Style ===== */
+select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  font-size: 14px;
+  color: #333;
+  appearance: none; /* hapus panah default di beberapa browser */
+  cursor: pointer;
+  transition: border 0.3s;
+}
+
+select:focus {
+  border-color: #2196f3;
+  outline: none;
+}
+
+/* ===== Popup Style ===== */
+#popup {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #4caf50; /* hijau untuk sukses */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  display: none; /* default disembunyikan */
+  z-index: 9999;
+  font-weight: bold;
+  animation: popupFade 0.5s ease-in-out;
+}
+
+@keyframes popupFade {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+
