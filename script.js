@@ -7,12 +7,11 @@ const saveBtn = document.getElementById("saveBtn");
 
 let currentData = [];
 
-
 // =====================
-// 1. Load daftar kelas
+// 1. Load metadata (kelas saja)
 // =====================
 async function loadMeta() {
-  const res = await fetch(API + "?action=getMetaData"); // nanti metadata hanya berisi KELAS
+  const res = await fetch(API + "?action=getMetaData");
   const data = await res.json();
 
   data.kelas.forEach(k => {
@@ -25,25 +24,25 @@ async function loadMeta() {
 
 loadMeta();
 
-
 // =====================
-// 2. Saat memilih kelas → ambil MAPEL
+// 2. Saat kelas dipilih → ambil mapel khusus kelas itu
 // =====================
 kelasSelect.addEventListener("change", async () => {
-  mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
-  tableContainer.innerHTML = "";
+  mapelSelect.innerHTML = `<option value="">Memuat...</option>`;
+  mapelSelect.disabled = true;
   saveBtn.disabled = true;
+  tableContainer.innerHTML = "";
 
   if (!kelasSelect.value) {
-    mapelSelect.disabled = true;
+    mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
     return;
   }
 
-  // ambil mapel sesuai kelas
   const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
-  const data = await res.json();
+  const mapel = await res.json();
 
-  data.mapel.forEach(m => {
+  mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+  mapel.forEach(m => {
     let opt = document.createElement("option");
     opt.value = m;
     opt.textContent = m;
@@ -53,9 +52,8 @@ kelasSelect.addEventListener("change", async () => {
   mapelSelect.disabled = false;
 });
 
-
 // =====================
-// 3. Saat memilih mapel → ambil nilai murid
+// 3. Saat mapel dipilih → ambil nilai
 // =====================
 mapelSelect.addEventListener("change", async () => {
   if (!mapelSelect.value) {
@@ -74,9 +72,8 @@ mapelSelect.addEventListener("change", async () => {
   saveBtn.disabled = false;
 });
 
-
 // =====================
-// 4. Bangun tabel input nilai
+// 4. Bangun tabel nilai
 // =====================
 function buildTable(arr) {
   let html = `<table>
@@ -97,15 +94,13 @@ function buildTable(arr) {
 
   document.querySelectorAll("input").forEach(inp => {
     inp.oninput = () => {
-      let i = inp.dataset.index;
-      currentData[i].nilai = inp.value;
+      currentData[inp.dataset.index].nilai = inp.value;
     };
   });
 }
 
-
 // =====================
-// 5. Simpan nilai murid
+// 5. Simpan nilai
 // =====================
 saveBtn.addEventListener("click", async () => {
   const body = {
@@ -121,5 +116,5 @@ saveBtn.addEventListener("click", async () => {
   });
 
   const result = await res.json();
-  alert(result.message || "Berhasil");
+  alert(result.message || "Berhasil disimpan!");
 });
