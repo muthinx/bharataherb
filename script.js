@@ -39,7 +39,7 @@ kelasSelect.addEventListener("change", async () => {
   }
 
   const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
-  const mapel = await res.json();
+  const { mapel } = await res.json();  // <-- INI FIX
 
   mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
   mapel.forEach(m => {
