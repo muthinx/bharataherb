@@ -29,7 +29,7 @@ loadMeta();
 // =====================
 kelasSelect.addEventListener("change", async () => {
   mapelSelect.innerHTML = `<option value="">Memuat...</option>`;
-  mapelSelect.disabled = true;
+  mapelSelect.disabled = false;
   saveBtn.disabled = true;
   tableContainer.innerHTML = "";
 
