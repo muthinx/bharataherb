@@ -41,6 +41,8 @@ kelasSelect.addEventListener("change", async () => {
   const res = await fetch(API + `?action=getMapel&kelas=${kelasSelect.value}`);
   const { mapel } = await res.json();  // <-- INI FIX
 
+  mapelSelect.disabled = false;
+
   mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
   mapel.forEach(m => {
     let opt = document.createElement("option");
@@ -48,8 +50,7 @@ kelasSelect.addEventListener("change", async () => {
     opt.textContent = m;
     mapelSelect.appendChild(opt);
   });
-
-  mapelSelect.disabled = false;
+  
 });
 
 // =====================
