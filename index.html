@@ -1,35 +1,223 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" dir="ltr">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leger Nilai Online</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leger Nilai Online</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- STYLE DASAR + HEADER -->
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, Arial, sans-serif;
+            background: #fdfdfd;
+            color: #333;
+            padding-bottom: 40px;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 960px;
+            margin: auto;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: #008cff;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 24px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            transition: .2s;
+        }
+
+        nav a:hover {
+            color: #008cff;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Responsive */
+        @media (max-width: 720px) {
+            nav {
+                position: fixed;
+                top: 0;
+                right: -260px;
+                width: 240px;
+                height: 100%;
+                background: #ffffff;
+                border-left: 1px solid #ddd;
+                padding: 80px 20px;
+                transition: right .3s ease;
+            }
+
+            nav.active {
+                right: 0;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 18px;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+        }
+
+        /* Container utama halaman */
+        .page-container {
+            max-width: 960px;
+            margin: 20px auto;
+            padding: 0 16px;
+        }
+
+        h2 {
+            margin-bottom: 12px;
+        }
+
+        /* Box form */
+        .box {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+
+        label {
+            display: block;
+            margin-top: 16px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        select,
+        button {
+            width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+        }
+
+        button {
+            cursor: pointer;
+            font-weight: 600;
+            background: #008cff;
+            color: white;
+            border: none;
+            transition: 0.2s;
+        }
+
+        button:disabled {
+            background: #8cbce9;
+            cursor: not-allowed;
+        }
+
+        #popup {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
 
-  <h2>Leger Nilai Online</h2>
+    <!-- HEADER -->
+    <header>
+        <div class="header-container">
+            <a class="logo" href="/">Koridor<span>Nalar</span></a>
 
-  <div class="box">
+            <button aria-label="Open menu" class="mobile-toggle" id="mobile-toggle">
+                <svg width="26" height="26" viewBox="0 0 448 512">
+                    <path
+                        d="M0 88C0 74.7 10.7 64 24 64H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H24C10.7 112 0 101.3 0 88zM0 248c0-13.3 
+                        10.7-24 24-24H424c13.3 0 24 10.7 24 24s-10.7 24-24 24H24c-13.3 0-24-10.7-24-24zM448 424c0 
+                        13.3-10.7 24-24 24H24c-13.3 0-24-10.7-24-24s10.7-24 24-24H424c13.3 0 24 10.7 24 24z">
+                    </path>
+                </svg>
+            </button>
 
-    <label>Kelas</label>
-    <select id="kelasSelect">
-      <option value="">Pilih kelas</option>
-    </select>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="/">Beranda</a></li>
+                    <li><a href="#tentang">Tentang</a></li>
+                    <li><a href="/koridor">Koridor</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <label>Mapel</label>
-    <select id="mapelSelect" disabled>
-      <option value="">Pilih mapel</option>
-    </select>
+    <!-- KONTEN -->
+    <div class="page-container">
+        <h2>Leger Nilai Online</h2>
 
-    <div id="tableContainer"></div>
+        <div class="box">
 
-    <button id="saveBtn" disabled>Simpan Nilai</button>
+            <label>Kelas</label>
+            <select id="kelasSelect">
+                <option value="">Pilih kelas</option>
+            </select>
 
-  </div>
-  <div id="popup"></div>
+            <label>Mapel</label>
+            <select id="mapelSelect" disabled>
+                <option value="">Pilih mapel</option>
+            </select>
 
-  <script src="script.js"></script>
+            <div id="tableContainer"></div>
+
+            <button id="saveBtn" disabled>Simpan Nilai</button>
+
+        </div>
+
+        <div id="popup"></div>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+        const toggle = document.getElementById('mobile-toggle');
+        const nav = document.getElementById('main-nav');
+        toggle.addEventListener('click', () => nav.classList.toggle('active'));
+    </script>
+
+    <script src="script.js"></script>
 </body>
-</html>
 
+</html>
