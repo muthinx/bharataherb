@@ -3,23 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Leger Nilai Online</title>
+  <title>Aplikasi Data Kelas Diniyah</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    /* Reset dan variabel CSS */
     :root {
-      --primary: #4361ee;
-      --primary-dark: #3a56d4;
-      --secondary: #7209b7;
-      --accent: #4cc9f0;
+      --primary: #3498db;
+      --primary-dark: #2980b9;
+      --secondary: #2ecc71;
+      --accent: #e74c3c;
       --light: #f8f9fa;
-      --dark: #212529;
-      --gray: #6c757d;
-      --success: #4caf50;
-      --warning: #ff9800;
-      --danger: #f44336;
+      --dark: #2c3e50;
+      --gray: #95a5a6;
       --border-radius: 8px;
-      --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       --transition: all 0.3s ease;
     }
 
@@ -35,11 +31,12 @@
       color: var(--dark);
       line-height: 1.6;
       min-height: 100vh;
+      padding: 0;
     }
 
-    /* Header dan Navigasi */
+    /* Header */
     header {
-      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
       color: white;
       padding: 1rem 2rem;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -96,7 +93,7 @@
       font-size: 1.5rem;
     }
 
-    /* Konten Utama */
+    /* Main Content */
     .container {
       max-width: 1200px;
       margin: 2rem auto;
@@ -122,7 +119,7 @@
       border-radius: 2px;
     }
 
-    .box {
+    .main-container {
       background: white;
       padding: 2rem;
       border-radius: var(--border-radius);
@@ -142,7 +139,7 @@
       color: var(--dark);
     }
 
-    select, input {
+    select {
       width: 100%;
       padding: 12px 15px;
       border: 1px solid #ddd;
@@ -150,21 +147,18 @@
       font-size: 1rem;
       transition: var(--transition);
       background-color: white;
-    }
-
-    select:focus, input:focus {
-      outline: none;
-      border-color: var(--primary);
-      box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
-    }
-
-    select {
       cursor: pointer;
       appearance: none;
       background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
       background-repeat: no-repeat;
       background-position: right 15px center;
       background-size: 16px;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
     }
 
     table {
@@ -196,8 +190,7 @@
       background-color: #f0f4ff;
     }
 
-    /* Input di dalam tabel */
-    table input {
+    table select {
       width: 100%;
       padding: 8px 10px;
       border: 1px solid #ddd;
@@ -206,123 +199,32 @@
       margin: 0;
     }
 
-    table input:focus {
-      border-color: var(--primary);
-      box-shadow: 0 0 0 2px rgba(67, 97, 238, 0.2);
-    }
-
-    /* Status bar */
-    .status-bar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      background-color: #f8f9fa;
-      border-radius: var(--border-radius);
-      font-size: 0.9rem;
-    }
-
-    .save-status {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .save-status i {
-      font-size: 0.8rem;
-    }
-
-    .saved {
-      color: var(--success);
-    }
-
-    .unsaved {
-      color: var(--warning);
-    }
-
-    .saving {
-      color: var(--primary);
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-
-    /* Tombol aksi */
-    .action-buttons {
-      display: flex;
-      gap: 1rem;
-      margin-top: 1.5rem;
-    }
-
-    .btn {
-      flex: 1;
+    button {
+      width: 100%;
       padding: 14px;
+      background: var(--primary);
+      color: white;
       border: none;
       border-radius: var(--border-radius);
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
+      margin-top: 1.5rem;
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 8px;
     }
 
-    .btn-primary {
-      background: var(--primary);
-      color: white;
-    }
-
-    .btn-primary:hover {
+    button:hover {
       background: var(--primary-dark);
       transform: translateY(-2px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     }
 
-    .btn-secondary {
-      background: var(--gray);
-      color: white;
-    }
-
-    .btn-secondary:hover {
-      background: #5a6268;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-    }
-
-    .btn:disabled {
-      background: #cccccc;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
-
-    /* Popup Style */
-    #popup {
-      position: fixed;
-      top: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--success);
-      color: white;
-      padding: 12px 20px;
-      border-radius: var(--border-radius);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      display: none;
-      z-index: 9999;
-      font-weight: bold;
-      animation: popupFade 0.5s ease-in-out;
-    }
-
-    @keyframes popupFade {
-      0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-      100% { opacity: 1; transform: translateX(-50%) translateY(0); }
+    button:active {
+      transform: translateY(0);
     }
 
     /* Footer */
@@ -364,7 +266,7 @@
         padding: 0 1rem;
       }
 
-      .box {
+      .main-container {
         padding: 1.5rem;
       }
 
@@ -375,10 +277,6 @@
       table th, table td {
         padding: 8px 10px;
       }
-
-      .action-buttons {
-        flex-direction: column;
-      }
     }
 
     @media (max-width: 480px) {
@@ -386,7 +284,7 @@
         font-size: 1.8rem;
       }
 
-      .box {
+      .main-container {
         padding: 1rem;
       }
 
@@ -401,14 +299,14 @@
   <header>
     <div class="header-container">
       <div class="logo">
-        <i class="fas fa-graduation-cap"></i>
-        <h1>Leger Nilai Online</h1>
+        <i class="fas fa-school"></i>
+        <h1>Aplikasi Data Kelas Diniyah</h1>
       </div>
       <nav>
         <ul id="nav-menu">
           <li><a href="#" class="active"><i class="fas fa-home"></i> Beranda</a></li>
-          <li><a href="#"><i class="fas fa-chart-bar"></i> Leger</a></li>
-          <li><a href="#"><i class="fas fa-users"></i> Siswa</a></li>
+          <li><a href="#"><i class="fas fa-users"></i> Kelas</a></li>
+          <li><a href="#"><i class="fas fa-chart-bar"></i> Laporan</a></li>
           <li><a href="#"><i class="fas fa-cog"></i> Pengaturan</a></li>
           <li><a href="#"><i class="fas fa-user-circle"></i> Profil</a></li>
         </ul>
@@ -420,50 +318,32 @@
   </header>
 
   <div class="container">
-    <h2 class="page-title">Leger Nilai Online</h2>
+    <h2 class="page-title">Data Kelas Diniyah</h2>
 
-    <div class="box">
+    <div class="main-container">
       <div class="form-group">
-        <label for="kelasSelect"><i class="fas fa-door-open"></i> Kelas</label>
-        <select id="kelasSelect">
-          <option value="">Pilih kelas</option>
-        </select>
+        <label for="kelasDropdown"><i class="fas fa-door-open"></i> Pilih Kelas:</label>
+        <select id="kelasDropdown"></select>
       </div>
 
-      <div class="form-group">
-        <label for="mapelSelect"><i class="fas fa-book"></i> Mata Pelajaran</label>
-        <select id="mapelSelect" disabled>
-          <option value="">Pilih mapel</option>
-        </select>
-      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Kelas Formal</th>
+          </tr>
+        </thead>
+        <tbody id="dataBody"></tbody>
+      </table>
 
-      <div id="tableContainer"></div>
-
-      <div class="status-bar">
-        <div class="save-status" id="saveStatus">
-          <i class="fas fa-check-circle saved"></i>
-          <span>Semua perubahan telah disimpan</span>
-        </div>
-        <div id="lastSaved">
-          Terakhir disimpan: <span id="lastSavedTime">-</span>
-        </div>
-      </div>
-
-      <div class="action-buttons">
-        <button id="saveBtn" class="btn btn-primary" disabled>
-          <i class="fas fa-save"></i> Simpan Perubahan
-        </button>
-        <button id="refreshBtn" class="btn btn-secondary">
-          <i class="fas fa-sync-alt"></i> Muat Ulang
-        </button>
-      </div>
+      <button id="saveBtn">
+        <i class="fas fa-save"></i> Simpan Perubahan
+      </button>
     </div>
   </div>
 
-  <div id="popup"></div>
-
   <footer>
-    <p>&copy; 2023 Leger Nilai Online. All rights reserved.</p>
+    <p>&copy; 2023 Aplikasi Data Kelas Diniyah. All rights reserved.</p>
   </footer>
 
   <script>
@@ -473,330 +353,127 @@
       navMenu.classList.toggle('show');
     });
 
-    // API URL - Ganti dengan URL Apps Script Anda
-    const API = "https://script.google.com/macros/s/AKfycbwN4XtV43TzXHElEuuBrxO1k8sj5BTEqSeo1W8Bf_OEKYNs_1xsLyUExTPHEcPWAVuv/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw8ydCYVPf66qMnD5U8BPcdQCW5Hrm5cD0IAvitTdXmwBi_gihAxEeXM51vMmreiGw/exec";
 
-    const kelasSelect = document.getElementById("kelasSelect");
-    const mapelSelect = document.getElementById("mapelSelect");
-    const tableContainer = document.getElementById("tableContainer");
-    const saveBtn = document.getElementById("saveBtn");
-    const refreshBtn = document.getElementById("refreshBtn");
-    const saveStatus = document.getElementById("saveStatus");
-    const lastSavedTime = document.getElementById("lastSavedTime");
+    let originalData = []; // untuk menyimpan data awal
 
-    let currentData = []; // untuk menyimpan nilai sementara
-    let lastSavedData = []; // untuk menyimpan data terakhir yang disimpan
-    let autoSaveTimer = null; // timer untuk auto save
-    let hasUnsavedChanges = false; // status perubahan yang belum disimpan
-
-    // =====================
-    // 1. Load Metadata
-    // =====================
-    async function loadMeta() {
+    async function loadKelas() {
       try {
-        const res = await fetch(API + "?action=getMetaData");
+        const res = await fetch(SCRIPT_URL + "?action=getSheets");
+        const sheets = await res.json();
+        const dropdown = document.getElementById("kelasDropdown");
+
+        sheets.forEach(name => {
+          const opt = document.createElement("option");
+          opt.value = name;
+          opt.textContent = name;
+          dropdown.appendChild(opt);
+        });
+
+        dropdown.addEventListener("change", loadData);
+        loadData();
+      } catch (error) {
+        console.error("Error loading kelas:", error);
+        alert("Gagal memuat data kelas");
+      }
+    }
+
+    async function loadData() {
+      const kelas = document.getElementById("kelasDropdown").value;
+      if (!kelas) return;
+
+      try {
+        const res = await fetch(SCRIPT_URL + `?action=getData&sheet=${kelas}`);
         const data = await res.json();
 
-        // isi dropdown kelas
-        data.kelas.forEach(k => {
-          let opt = document.createElement("option");
-          opt.value = k;
-          opt.textContent = k;
-          kelasSelect.appendChild(opt);
-        });
+        // simpan data awal sebagai pembanding
+        originalData = JSON.parse(JSON.stringify(data));
 
-        // simpan mapel (tidak perlu fetch ulang)
-        sessionStorage.setItem("mapelList", JSON.stringify(data.mapel));
+        const tbody = document.getElementById("dataBody");
+        tbody.innerHTML = "";
+
+        const formalList = [
+          "Isi Kelas Formal", "Wustha 1A", "Wustha 1B", "Wustha 1C", "Wustha 1D",
+          "Wustha 2", "Ulya 1A", "Ulya 1B", "Ulya 2A", "Ulya 2B", "Ulya 2C"
+        ];
+
+        data.forEach(row => {
+          const tr = document.createElement("tr");
+
+          const tdNama = document.createElement("td");
+          tdNama.textContent = row[0] || "";
+          tr.appendChild(tdNama);
+
+          const tdFormal = document.createElement("td");
+          const select = document.createElement("select");
+          formalList.forEach(f => {
+            const opt = document.createElement("option");
+            opt.value = f;
+            opt.textContent = f;
+            if (row[1] === f) opt.selected = true;
+            select.appendChild(opt);
+          });
+          tdFormal.appendChild(select);
+          tr.appendChild(tdFormal);
+
+          tbody.appendChild(tr);
+        });
       } catch (error) {
-        console.error("Error loading metadata:", error);
-        showPopup("Gagal memuat data kelas dan mapel", "#f44336");
+        console.error("Error loading data:", error);
+        alert("Gagal memuat data siswa");
       }
     }
 
-    loadMeta();
+    document.getElementById("saveBtn").addEventListener("click", saveData);
 
-    // =====================
-    // 2. Saat memilih kelas
-    // =====================
-    kelasSelect.addEventListener("change", () => {
-      mapelSelect.innerHTML = `<option value="">Pilih mapel</option>`;
+    async function saveData() {
+      const kelas = document.getElementById("kelasDropdown").value;
+      const rows = document.querySelectorAll("#dataBody tr");
 
-      if (!kelasSelect.value) {
-        mapelSelect.disabled = true;
-        saveBtn.disabled = true;
-        tableContainer.innerHTML = "";
-        updateSaveStatus(true, false);
-        return;
-      }
+      const changedRows = [];
 
-      let mapel = JSON.parse(sessionStorage.getItem("mapelList"));
-      mapel.forEach(m => {
-        let opt = document.createElement("option");
-        opt.value = m;
-        opt.textContent = m;
-        mapelSelect.appendChild(opt);
-      });
+      rows.forEach((tr, i) => {
+        const nama = tr.children[0].textContent;
+        const kelasFormal = tr.children[1].querySelector("select").value;
 
-      mapelSelect.disabled = false;
-      updateSaveStatus(true, false);
-    });
+        const originalFormal = originalData[i][1];
 
-    // =====================
-    // 3. Saat memilih mapel → ambil nilai
-    // =====================
-    mapelSelect.addEventListener("change", async () => {
-      if (!mapelSelect.value) {
-        tableContainer.innerHTML = "";
-        saveBtn.disabled = true;
-        updateSaveStatus(true, false);
-        return;
-      }
-
-      try {
-        const res = await fetch(
-          API + `?action=getNilai&kelas=${kelasSelect.value}&mapel=${mapelSelect.value}`
-        );
-
-        currentData = await res.json();
-        lastSavedData = JSON.parse(JSON.stringify(currentData)); // Salinan data yang disimpan
-        buildTable(currentData);
-        saveBtn.disabled = true;
-        updateSaveStatus(true, false);
-        updateLastSavedTime();
-      } catch (error) {
-        console.error("Error loading nilai:", error);
-        showPopup("Gagal memuat data nilai", "#f44336");
-      }
-    });
-
-    // =====================
-    // 4. Bangun tabel input
-    // =====================
-    function buildTable(arr) {
-      let html = `<table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>Nilai</th>
-          </tr>
-        </thead>
-        <tbody>
-      `;
-
-      arr.forEach((x, i) => {
-        html += `
-          <tr>
-            <td>${x.nama}</td>
-            <td><input type="number" value="${x.nilai}" data-index="${i}" min="0" max="100" /></td>
-          </tr>
-        `;
-      });
-
-      html += "</tbody></table>";
-      tableContainer.innerHTML = html;
-
-      document.querySelectorAll("input").forEach(inp => {
-        inp.addEventListener("input", () => {
-          let i = inp.dataset.index;
-          currentData[i].nilai = inp.value;
-          
-          // Cek apakah ada perubahan dari data yang terakhir disimpan
-          hasUnsavedChanges = checkForUnsavedChanges();
-          
-          if (hasUnsavedChanges) {
-            saveBtn.disabled = false;
-            updateSaveStatus(false, false);
-            
-            // Set timer untuk auto save (5 detik setelah perubahan terakhir)
-            clearTimeout(autoSaveTimer);
-            autoSaveTimer = setTimeout(autoSave, 5000);
-          } else {
-            saveBtn.disabled = true;
-            updateSaveStatus(true, false);
-          }
-        });
-      });
-    }
-
-    // =====================
-    // 5. Fungsi untuk memeriksa perubahan yang belum disimpan
-    // =====================
-    function checkForUnsavedChanges() {
-      if (currentData.length !== lastSavedData.length) return true;
-      
-      for (let i = 0; i < currentData.length; i++) {
-        if (currentData[i].nilai !== lastSavedData[i].nilai) {
-          return true;
+        // kirim hanya jika berubah
+        if (kelasFormal !== originalFormal) {
+          changedRows.push([nama, kelasFormal]);
         }
+      });
+
+      if (changedRows.length === 0) {
+        alert("Tidak ada perubahan.");
+        return;
       }
-      
-      return false;
-    }
 
-    // =====================
-    // 6. Fungsi Auto Save
-    // =====================
-    async function autoSave() {
-      if (!hasUnsavedChanges) return;
-      
-      updateSaveStatus(false, true);
-      
       try {
-        const body = {
-          action: "saveNilai",
-          kelas: kelasSelect.value,
-          mapel: mapelSelect.value,
-          nilai: currentData.map(x => x.nilai)
-        };
-
-        const res = await fetch(API, {
+        await fetch(SCRIPT_URL, {
           method: "POST",
-          body: JSON.stringify(body)
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams({
+            action: "updateBulk",
+            sheet: kelas,
+            data: JSON.stringify(changedRows)
+          })
         });
 
-        const result = await res.json();
-        
-        if (result.status === "success") {
-          lastSavedData = JSON.parse(JSON.stringify(currentData));
-          hasUnsavedChanges = false;
-          saveBtn.disabled = true;
-          updateSaveStatus(true, false);
-          updateLastSavedTime();
-          showPopup("Perubahan otomatis disimpan", "#4caf50");
-        } else {
-          throw new Error(result.message || "Gagal menyimpan otomatis");
-        }
-      } catch (error) {
-        console.error("Error auto saving:", error);
-        updateSaveStatus(false, false);
-        showPopup("Gagal menyimpan otomatis", "#f44336");
-      }
-    }
+        alert("Perubahan berhasil disimpan!");
 
-    // =====================
-    // 7. Fungsi Manual Save (hanya data yang belum disimpan)
-    // =====================
-    saveBtn.addEventListener("click", async () => {
-      if (!hasUnsavedChanges) return;
-      
-      updateSaveStatus(false, true);
-      
-      try {
-        const body = {
-          action: "saveNilai",
-          kelas: kelasSelect.value,
-          mapel: mapelSelect.value,
-          nilai: currentData.map(x => x.nilai)
-        };
-
-        const res = await fetch(API, {
-          method: "POST",
-          body: JSON.stringify(body)
+        // update data awal agar tidak dianggap berubah lagi
+        changedRows.forEach(cr => {
+          const idx = originalData.findIndex(r => r[0] === cr[0]);
+          if (idx !== -1) originalData[idx][1] = cr[1];
         });
-
-        const result = await res.json();
-        
-        if (result.status === "success") {
-          lastSavedData = JSON.parse(JSON.stringify(currentData));
-          hasUnsavedChanges = false;
-          saveBtn.disabled = true;
-          updateSaveStatus(true, false);
-          updateLastSavedTime();
-          showPopup("Perubahan berhasil disimpan", "#4caf50");
-        } else {
-          throw new Error(result.message || "Gagal menyimpan");
-        }
       } catch (error) {
-        console.error("Error saving:", error);
-        updateSaveStatus(false, false);
-        showPopup("Gagal menyimpan perubahan", "#f44336");
-      }
-    });
-
-    // =====================
-    // 8. Fungsi Refresh Data
-    // =====================
-    refreshBtn.addEventListener("click", async () => {
-      if (hasUnsavedChanges && !confirm("Ada perubahan yang belum disimpan. Muat ulang data akan menghilangkan perubahan tersebut. Lanjutkan?")) {
-        return;
-      }
-      
-      if (mapelSelect.value) {
-        try {
-          const res = await fetch(
-            API + `?action=getNilai&kelas=${kelasSelect.value}&mapel=${mapelSelect.value}`
-          );
-
-          currentData = await res.json();
-          lastSavedData = JSON.parse(JSON.stringify(currentData));
-          buildTable(currentData);
-          hasUnsavedChanges = false;
-          saveBtn.disabled = true;
-          updateSaveStatus(true, false);
-          updateLastSavedTime();
-          showPopup("Data berhasil dimuat ulang", "#4caf50");
-        } catch (error) {
-          console.error("Error refreshing data:", error);
-          showPopup("Gagal memuat ulang data", "#f44336");
-        }
-      }
-    });
-
-    // =====================
-    // 9. Fungsi Update Status Save
-    // =====================
-    function updateSaveStatus(isSaved, isSaving) {
-      const icon = saveStatus.querySelector("i");
-      const text = saveStatus.querySelector("span");
-      
-      if (isSaving) {
-        icon.className = "fas fa-sync-alt saving";
-        text.textContent = "Menyimpan...";
-      } else if (isSaved) {
-        icon.className = "fas fa-check-circle saved";
-        text.textContent = "Semua perubahan telah disimpan";
-      } else {
-        icon.className = "fas fa-exclamation-circle unsaved";
-        text.textContent = "Ada perubahan yang belum disimpan";
+        console.error("Error saving data:", error);
+        alert("Gagal menyimpan perubahan");
       }
     }
 
-    // =====================
-    // 10. Fungsi Update Waktu Terakhir Disimpan
-    // =====================
-    function updateLastSavedTime() {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString('id-ID', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        second: '2-digit'
-      });
-      lastSavedTime.textContent = timeString;
-    }
-
-    // =====================
-    // 11. Fungsi Popup
-    // =====================
-    function showPopup(message, color="#4caf50") {
-      const popup = document.getElementById("popup");
-      popup.textContent = message;
-      popup.style.background = color;
-      popup.style.display = "block";
-
-      setTimeout(() => {
-        popup.style.display = "none";
-      }, 3000);
-    }
-
-    // =====================
-    // 12. Peringatan sebelum meninggalkan halaman jika ada perubahan yang belum disimpan
-    // =====================
-    window.addEventListener('beforeunload', (e) => {
-      if (hasUnsavedChanges) {
-        e.preventDefault();
-        e.returnValue = '';
-      }
-    });
+    loadKelas();
   </script>
 </body>
 </html>
